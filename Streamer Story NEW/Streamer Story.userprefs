@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Title Screen Scripts\GameModePanel.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Title Screen Scripts\GameModePanel.cs" Line="109" Column="47" />
+      <File FileName="Assets\Scripts\Andy's Scripts\MasterGameObject.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Andy's Scripts\Rooms.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NewEvent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\changeBtnColor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Panel\BeginCreationBtn.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\testDebug.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Andy's Scripts\Personnel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Top Panel\TimeTxt.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Title Screen Scripts\textHighlightChange.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GUI\Main Panel\Options Panel\Options.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Title Screen Scripts\BG_Scrolling.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
