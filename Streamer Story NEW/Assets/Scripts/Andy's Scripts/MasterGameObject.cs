@@ -35,7 +35,7 @@ public class MasterGameObject : MonoBehaviour {
     public GameObject purchased3;
     public GameObject purchased4;
 
-    public GameObject moveHQBtn;
+    public GameObject moveHQBtn, stopStreamBtn;
     public Text EmpTxt, moneyTxt,streamTitle,energyTxt;
 
     private bool energyRunOnce;
@@ -71,16 +71,21 @@ public class MasterGameObject : MonoBehaviour {
         Debug.Log(newStream.getCash());
         money += newStream.getCash();
         Debug.Log("Stream ended");
+        stopStreamBtn.SetActive(false);
         
     }
     IEnumerator energyCounter()
     {
         yield return new WaitForSeconds(4);
         if (!isStreaming)
-        { 
+        {
             totalEnergy++;
             Debug.Log("energyCounter Active");
-            
+
+        }
+        else
+        {
+            totalEnergy-=3;
         }
         energyRunOnce = false;
         StopCoroutine(energyCounter());
@@ -89,7 +94,7 @@ public class MasterGameObject : MonoBehaviour {
 
     public bool checkStream()
     {
-        if (streamTitle.text == "")
+        if (streamTitle.text == "" || isStreaming == true)
         {
             Debug.Log("enter a name");
             return false;
@@ -105,12 +110,26 @@ public class MasterGameObject : MonoBehaviour {
             Debug.Log("Stream started");
             isStreaming = true;
             newStream.startStream(totalEnergy, strQuality.poor, 10, 10, 10);
+            stopStreamBtn.SetActive(true);
             StartCoroutine(streamTimer(totalEnergy));
+        }
+        else if(!checkStream())
+        {
+            Debug.Log("Stream in progress");
+            return;
         }
         
         
         StopCoroutine(streamTimer(totalEnergy));
         
+    }
+    public void stopStreamButton()
+    {
+        StopCoroutine(streamTimer(totalEnergy));
+        isStreaming = false;
+        stopStreamBtn.SetActive(false);
+        Debug.Log("Stream has Ended");
+
     }
 
     #endregion
