@@ -26,7 +26,7 @@ public class MasterGameObject : MonoBehaviour {
 	private Rooms[] rm = new Rooms[4];
 
     private Personnel[] employee = new Personnel[4];
-    private int totalEnergy;
+    private int totalEnergy, startEnergy;
 
     private int maxEmp = 1;
     
@@ -67,11 +67,8 @@ public class MasterGameObject : MonoBehaviour {
     {
         yield return new WaitForSeconds(energy);
 
-        isStreaming = false;
-        Debug.Log(newStream.getCash());
-        money += newStream.getCash();
-        Debug.Log("Stream ended");
-        stopStreamBtn.SetActive(false);
+
+        stopStreamButton();
         
     }
     IEnumerator energyCounter()
@@ -109,9 +106,9 @@ public class MasterGameObject : MonoBehaviour {
 
             Debug.Log("Stream started");
             isStreaming = true;
-            newStream.startStream(totalEnergy, strQuality.poor, 10, 10, 10);
             stopStreamBtn.SetActive(true);
             StartCoroutine(streamTimer(totalEnergy));
+            startEnergy = totalEnergy;
         }
         else if(!checkStream())
         {
@@ -126,6 +123,9 @@ public class MasterGameObject : MonoBehaviour {
     public void stopStreamButton()
     {
         StopCoroutine(streamTimer(totalEnergy));
+        newStream.startStream(startEnergy - totalEnergy, strQuality.terrible, 10, 10, 10);
+        Debug.Log(newStream.getCash());
+        money += newStream.getCash();
         isStreaming = false;
         stopStreamBtn.SetActive(false);
         Debug.Log("Stream has Ended");
