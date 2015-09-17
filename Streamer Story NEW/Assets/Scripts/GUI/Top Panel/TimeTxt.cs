@@ -75,6 +75,8 @@ public class TimeTxt : MonoBehaviour {
 	IEnumerator TimeWait() 
 	{
 		yield return new WaitForSeconds(1);
+        
+        
 		count++;
 		enableBar(count);
 		runOnce = false;

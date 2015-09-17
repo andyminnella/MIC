@@ -36,7 +36,9 @@ public class MasterGameObject : MonoBehaviour {
     public GameObject purchased4;
 
     public GameObject moveHQBtn;
-    public Text EmpTxt, moneyTxt,streamTitle;
+    public Text EmpTxt, moneyTxt,streamTitle,energyTxt;
+
+    private bool energyRunOnce;
 
 
     
@@ -64,11 +66,24 @@ public class MasterGameObject : MonoBehaviour {
     IEnumerator streamTimer(int energy)
     {
         yield return new WaitForSeconds(energy);
+
         isStreaming = false;
         Debug.Log(newStream.getCash());
         money += newStream.getCash();
         Debug.Log("Stream ended");
         
+    }
+    IEnumerator energyCounter()
+    {
+        yield return new WaitForSeconds(4);
+        if (!isStreaming)
+        { 
+            totalEnergy++;
+            Debug.Log("energyCounter Active");
+            
+        }
+        energyRunOnce = false;
+        StopCoroutine(energyCounter());
 
     }
 
@@ -90,9 +105,9 @@ public class MasterGameObject : MonoBehaviour {
             Debug.Log("Stream started");
             isStreaming = true;
             newStream.startStream(totalEnergy, strQuality.poor, 10, 10, 10);
-            
+            StartCoroutine(streamTimer(totalEnergy));
         }
-        StartCoroutine(streamTimer(totalEnergy));
+        
         
         StopCoroutine(streamTimer(totalEnergy));
         
@@ -143,7 +158,7 @@ public class MasterGameObject : MonoBehaviour {
     void Start()
     {
 
-
+        
 		//initialize rooms 0-3
 		for (int i = 0; i < 4; i++) 
 		{
@@ -171,6 +186,7 @@ public class MasterGameObject : MonoBehaviour {
                     rm[i].setMaxEmp(6);
                     break;
             }
+            
 
 		}
 		HQ = rm [0];
@@ -179,13 +195,21 @@ public class MasterGameObject : MonoBehaviour {
 		
 		money = 1000;
 		progress = 0;
+        totalEnergy = calcTotalEnergy(employee);
 	}
+    
 	
 	// Update is called once per frame
 	void Update () {
+        if (!energyRunOnce && !timer.paused)
+        {
+            StartCoroutine(energyCounter());
+            energyRunOnce = true;
+        }
         EmpTxt.text = "Employees: " + countEmployees(employee) + "/" + maxEmp;
         moneyTxt.text = "money: $" + money;
-        totalEnergy = calcTotalEnergy(employee);
+        
+        energyTxt.text = "Total Energy: " + totalEnergy;
         
 	}
 
