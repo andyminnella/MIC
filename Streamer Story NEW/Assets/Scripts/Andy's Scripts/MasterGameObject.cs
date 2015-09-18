@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class MasterGameObject : MonoBehaviour {
 	#region Variables
+    /// <summary>
+    /// fuck u everyone
+    /// </summary>
 	public static int money;
     private TimeTxt timer = new TimeTxt();
  
