@@ -17,7 +17,7 @@ public class Stream : MonoBehaviour
     private MasterGameObject.strQuality quaility;
     #endregion
 
-
+    //function that starts the stream takes in energy quality skill charm comp
     public void startStream(int energy, MasterGameObject.strQuality strQuality, int skill, int charm, int comp)
     {
         cashPerInt = Random.RandomRange(1, 15);
@@ -36,7 +36,7 @@ public class Stream : MonoBehaviour
         
 
     }
-
+    //returns cash earned from stream
     public int getCash()
     {
         return cashPerStream;

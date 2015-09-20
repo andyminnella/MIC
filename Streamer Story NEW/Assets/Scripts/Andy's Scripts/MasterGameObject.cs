@@ -66,32 +66,19 @@ public class MasterGameObject : MonoBehaviour {
 	#endregion
 
     #region stream functions
+    //stops stream when energy is over
     IEnumerator streamTimer(int energy)
     {
         yield return new WaitForSeconds(energy);
 
-
-        stopStreamButton();
+        if (isStreaming)
+        {
+            stopStreamButton();
+        }
         
     }
-    IEnumerator energyCounter()
-    {
-        yield return new WaitForSeconds(4);
-        if (!isStreaming)
-        {
-            totalEnergy++;
-            Debug.Log("energyCounter Active");
-
-        }
-        else
-        {
-            totalEnergy-=3;
-        }
-        energyRunOnce = false;
-        StopCoroutine(energyCounter());
-
-    }
-
+    
+    // checks if streaming is allowed
     public bool checkStream()
     {
         if (streamTitle.text == "" || isStreaming == true)
@@ -102,6 +89,7 @@ public class MasterGameObject : MonoBehaviour {
         else
             return true;
     }
+    //function to start stream checks if allowed first
     public void streamBtn()
     {
         if (checkStream())
@@ -123,6 +111,7 @@ public class MasterGameObject : MonoBehaviour {
         StopCoroutine(streamTimer(totalEnergy));
         
     }
+    //function to stop stream
     public void stopStreamButton()
     {
         StopCoroutine(streamTimer(totalEnergy));
@@ -149,6 +138,8 @@ public class MasterGameObject : MonoBehaviour {
 
     #region employee functions
 
+    // counts number of employees employed
+
     public int countEmployees(Personnel[] empList)
     {
         int numEmp = 0;
@@ -162,7 +153,7 @@ public class MasterGameObject : MonoBehaviour {
         }
         return numEmp;
     }
-
+    //calculates total energy to display on screen
     public int calcTotalEnergy(Personnel[] empList)
     {
         int totalEnergy= 0;
@@ -181,7 +172,7 @@ public class MasterGameObject : MonoBehaviour {
     {
 
         
-		//initialize rooms 0-3
+		//initialize rooms and employees 0-3
 		for (int i = 0; i < 4; i++) 
 		{
 			rm[i] = new Rooms(i+1);
@@ -234,7 +225,27 @@ public class MasterGameObject : MonoBehaviour {
         energyTxt.text = "Total Energy: " + totalEnergy;
         
 	}
+    /// <summary>
+    /// counter that adds energy every 4 seconds
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator energyCounter()
+    {
+        yield return new WaitForSeconds(4);
+        if (!isStreaming)
+        {
+            totalEnergy++;
+            Debug.Log("energyCounter Active");
 
+        }
+        else
+        {
+            totalEnergy -= 3;
+        }
+        energyRunOnce = false;
+        StopCoroutine(energyCounter());
+
+    }
 
 	#region BusinessPanel buttons
 
